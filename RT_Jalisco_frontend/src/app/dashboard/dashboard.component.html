@@ -1,0 +1,45 @@
+<div class="dashboard-container">
+    <h1>Dashboard de Estadísticas</h1>
+  
+    <!-- Filtros -->
+    <div class="filters">
+        <label for="yearStart">Año de inicio:</label>
+        <input type="number" id="yearStart" [(ngModel)]="yearStart" (ngModelChange)="onFilterChange()" />
+      
+        <label for="monthStart">Mes de inicio:</label>
+        <input type="number" id="monthStart" [(ngModel)]="monthStart" (ngModelChange)="onFilterChange()" />
+      
+        <label for="yearEnd">Año de fin:</label>
+        <input type="number" id="yearEnd" [(ngModel)]="yearEnd" (ngModelChange)="onFilterChange()" />
+      
+        <label for="monthEnd">Mes de fin:</label>
+        <input type="number" id="monthEnd" [(ngModel)]="monthEnd" (ngModelChange)="onFilterChange()" />
+      
+        <label for="transporte">Transporte:</label>
+        <select id="transporte" [(ngModel)]="transporte" (ngModelChange)="onFilterChange()">
+          <option *ngFor="let t of transportes" [value]="t">{{ t }}</option>
+        </select>
+      </div>
+      
+  
+    <!-- Estadísticas -->
+    <div class="statistics">
+      <p>Ingresos por pasaje: {{ ingresosPasaje }}</p>
+      <p>Kilómetros recorridos: {{ kilometrosRecorridos }}</p>
+      <p>Longitud del servicio: {{ longitudServicio }}</p>
+      <p>Pasajeros transportados: {{ pasajerosTransportados }}</p>
+      <p>Unidades en operación: {{ unidadesOperacion }}</p>
+    </div>
+
+    <div>
+        <h2>Gráfica de Tendencias</h2>
+        <canvas #lineChartCanvas></canvas>
+      </div>
+      
+      <div>
+        <h2>Comparación por Transporte</h2>
+        <canvas #barChartCanvas></canvas>
+      </div>
+      
+      
+  </div>  
