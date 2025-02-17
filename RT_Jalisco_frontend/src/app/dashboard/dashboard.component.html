@@ -1,45 +1,78 @@
 <div class="dashboard-container">
+  <div class="header">
     <h1>Dashboard de Estadísticas</h1>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <h3>Filtros</h3>
+    <div class="filter-item">
+      <label for="yearStart">Año de inicio:</label>
+      <input type="number" id="yearStart" [(ngModel)]="yearStart" (ngModelChange)="onFilterChange()" />
+    </div>
   
-    <!-- Filtros -->
-    <div class="filters">
-        <label for="yearStart">Año de inicio:</label>
-        <input type="number" id="yearStart" [(ngModel)]="yearStart" (ngModelChange)="onFilterChange()" />
-      
-        <label for="monthStart">Mes de inicio:</label>
-        <input type="number" id="monthStart" [(ngModel)]="monthStart" (ngModelChange)="onFilterChange()" />
-      
-        <label for="yearEnd">Año de fin:</label>
-        <input type="number" id="yearEnd" [(ngModel)]="yearEnd" (ngModelChange)="onFilterChange()" />
-      
-        <label for="monthEnd">Mes de fin:</label>
-        <input type="number" id="monthEnd" [(ngModel)]="monthEnd" (ngModelChange)="onFilterChange()" />
-      
-        <label for="transporte">Transporte:</label>
-        <select id="transporte" [(ngModel)]="transporte" (ngModelChange)="onFilterChange()">
-          <option *ngFor="let t of transportes" [value]="t">{{ t }}</option>
-        </select>
-      </div>
-      
+    <div class="filter-item">
+      <label for="monthStart">Mes de inicio:</label>
+      <input type="number" id="monthStart" [(ngModel)]="monthStart" (ngModelChange)="onFilterChange()" />
+    </div>
   
-    <!-- Estadísticas -->
-    <div class="statistics">
-      <p>Ingresos por pasaje: {{ ingresosPasaje }}</p>
-      <p>Kilómetros recorridos: {{ kilometrosRecorridos }}</p>
-      <p>Longitud del servicio: {{ longitudServicio }}</p>
-      <p>Pasajeros transportados: {{ pasajerosTransportados }}</p>
-      <p>Unidades en operación: {{ unidadesOperacion }}</p>
+    <div class="filter-item">
+      <label for="yearEnd">Año de fin:</label>
+      <input type="number" id="yearEnd" [(ngModel)]="yearEnd" (ngModelChange)="onFilterChange()" />
+    </div>
+  
+    <div class="filter-item">
+      <label for="monthEnd">Mes de fin:</label>
+      <input type="number" id="monthEnd" [(ngModel)]="monthEnd" (ngModelChange)="onFilterChange()" />
+    </div>
+  
+    <div class="filter-item">
+      <label for="transporte">Transporte:</label>
+      <select id="transporte" [(ngModel)]="transporte" (ngModelChange)="onFilterChange()">
+        <option *ngFor="let t of transportes" [value]="t">{{ t }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Estadísticas -->
+  <h2>Estadísticas Generales</h2>
+  <div class="statistics">    
+    <p><strong>Ingresos por pasaje:</strong> {{ ingresosPasaje }}</p>
+    <p><strong>Kilómetros recorridos:</strong> {{ kilometrosRecorridos }}</p>
+    <p><strong>Longitud del servicio:</strong> {{ longitudServicio }}</p>
+    <p><strong>Pasajeros transportados:</strong> {{ pasajerosTransportados }}</p>
+    <p><strong>Unidades en operación:</strong> {{ unidadesOperacion }}</p>
+  </div>
+
+  <!-- Gráficas -->
+  <h2>Gráficas de Desempeño</h2>
+  <div class="graph-container">
+    
+    
+    <div class="graph-item">
+      <h3>Ingresos por Pasaje vs. Pasajeros Transportados (Gráfico de Línea)</h3>
+      <canvas #lineChartCanvas></canvas>
     </div>
 
-    <div>
-        <h2>Gráfica de Tendencias</h2>
-        <canvas #lineChartCanvas></canvas>
-      </div>
-      
-      <div>
-        <h2>Comparación por Transporte</h2>
-        <canvas #barChartCanvas></canvas>
-      </div>
-      
-      
-  </div>  
+    <div class="graph-item">
+      <h3>Ingresos por Transporte (Gráfico de Barras)</h3>
+      <canvas #barChartCanvas></canvas>
+    </div>
+
+    <div class="graph-item">
+      <h3>Distribución de Ingresos por Transporte (Gráfico de Pastel)</h3>
+      <canvas #pieChartCanvas></canvas>
+    </div>
+
+    <div class="graph-item">
+      <h3>Comparativa de Ingresos y Pasajeros Transportados por Transporte (Gráfico de Barras Apiladas)</h3>
+      <canvas #stackedBarChartCanvas></canvas>
+    </div>
+
+    <div class="graph-item">
+      <h3>Evolución de la Longitud de Servicio a lo Largo del Tiempo (Gráfico de Área)</h3>
+      <canvas #areaChartCanvas></canvas>
+    </div>
+  </div>
+</div>

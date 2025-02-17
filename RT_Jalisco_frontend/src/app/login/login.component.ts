@@ -1,28 +1,35 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';  // Asegúrate de importar FormsModule
-import { Router } from '@angular/router';  // Importa Router
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,  // Asegúrate de que sea un componente standalone
-  imports: [CommonModule, FormsModule],  // Importa FormsModule y CommonModule
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  loginForm: FormGroup;
 
-  constructor(private router: Router) {}  // Inyecta Router
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   onLogin() {
-    if (this.username === 'admin' && this.password === 'password') {
-      alert('Login successful!');
-      this.router.navigate(['/dashboard']);  // Redirige al dashboard
-    } else {
-      alert('Invalid credentials!');
+    if (this.loginForm.valid) {
+      const { username, password } = this.loginForm.value;
+      
+      if (username === 'admin' && password === 'password') {
+        alert('¡Inicio de sesión exitoso!');
+        this.router.navigate(['/dashboard']);
+      } else {
+        alert('¡Credenciales inválidas!');
+      }
     }
   }
 }
